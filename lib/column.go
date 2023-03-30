@@ -110,7 +110,7 @@ func (col *column) computeTop() {
 	c0 := topCell.c[0]
 	// Normalization constraint for 0th coefficient (one corresponding to the max m1), sign is positive by convention, see Shankar (15.2.10).
 	for dj := 0; dj < col.dj; dj++ {
-		c0.Sub(c0, blankRat().Abs(rowPeer(dj).c[0]))
+		c0.Sub(c0, BlankRat().Abs(rowPeer(dj).c[0]))
 	}
 	if c0.Sign() <= 0 {
 		panic(fmt.Sprintf("non-postive sign for square of coefficient <m1,m2| at column %v", col.dj))
@@ -123,17 +123,17 @@ func (col *column) computeTop() {
 		cl := topCell.c[l]
 		for dj := 0; dj < col.dj; dj++ {
 			peer := rowPeer(dj)
-			accum(cl, blankRat().Mul(peer.c[0], peer.c[l]))
+			accum(cl, BlankRat().Mul(peer.c[0], peer.c[l]))
 		}
 		cl.Quo(cl, c0).Neg(cl)
 	}
 }
 
-// Accumulates v onto sum (both are to be interpreted as square of the underlying rational values with sign on the enumerator).
+// Accumulates v onto sum (both are to be interpreted as square of the underlying rational values with sign on the numerator).
 func accum(sum, v *big.Rat) {
 	// Determine the overall sign.
-	n1 := blankInt().Mul(sum.Num(), v.Denom())
-	n2 := blankInt().Mul(sum.Denom(), v.Num())
+	n1 := BlankInt().Mul(sum.Num(), v.Denom())
+	n2 := BlankInt().Mul(sum.Denom(), v.Num())
 	overallSign := n1.Add(n1, n2).Sign()
 
 	if overallSign == 0 {
@@ -141,19 +141,19 @@ func accum(sum, v *big.Rat) {
 		return
 	}
 
-	abs1 := blankRat().Abs(sum)
-	abs2 := blankRat().Abs(v)
+	abs1 := BlankRat().Abs(sum)
+	abs2 := BlankRat().Abs(v)
 
 	// Cross term.
-	cross := blankRat().Mul(abs1, abs2)
+	cross := BlankRat().Mul(abs1, abs2)
 	// Verify cross term is perfect square of rational.
 	// Note this is a much stronger condition than the condition that CG coefficients themselves are rational squares.
-	numRoot := blankInt().Sqrt(cross.Num())
-	r := blankInt().Mul(numRoot, numRoot)
+	numRoot := BlankInt().Sqrt(cross.Num())
+	r := BlankInt().Mul(numRoot, numRoot)
 	if r.Cmp(cross.Num()) != 0 {
 		panic(fmt.Sprintf("numerator of cross term (%v, %v) is not square", sum, v))
 	}
-	denomRoot := blankInt().Sqrt(cross.Denom())
+	denomRoot := BlankInt().Sqrt(cross.Denom())
 	r = r.Mul(denomRoot, denomRoot)
 	if r.Cmp(cross.Denom()) != 0 {
 		panic(fmt.Sprintf("denominator of cross term (%v, %v) is not square", sum, v))
@@ -169,7 +169,3 @@ func accum(sum, v *big.Rat) {
 		sum.Neg(sum)
 	}
 }
-
-func blankInt() *big.Int { return big.NewInt(0) }
-
-func blankRat() *big.Rat { return big.NewRat(0, 1) }

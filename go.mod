@@ -1,3 +1,3 @@
 module github.com/euphoricrhino/cg
 
-go 1.18
+go 1.20

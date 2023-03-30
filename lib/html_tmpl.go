@@ -62,12 +62,12 @@ td.jheading {
 <h2>Clebsch-Gordan Coefficients for j1 = {{ .J1 }}, j2 = {{ .J2 }}</h2>
 <table>
   <tr>
-    <td>M</td>
+    <td>m</td>
     <td>m1</td>
     <td>m2</td>
     {{- range $secIdx, $sec := .Sections }}
       {{- if $sec.PrintHeading }}
-    <td class="jheading">J = {{ $sec.M }}</td>
+    <td class="jheading">j = {{ $sec.M }}</td>
       {{- end }}
   </tr>
       {{- $rowspan := (len $sec.Rows) }}
