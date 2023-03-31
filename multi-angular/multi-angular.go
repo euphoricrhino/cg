@@ -235,7 +235,11 @@ func (ma *multiAngular) RenderHTML() {
 	s = nil
 	for _, path := range ma.subspacePaths {
 		twoj := path[len(path)-1]
-		s = append(s, fmt.Sprintf("\\left(%v\\right)_{%v}", halfIntegerLatex(twoj), ma.lookupSubspaceIndex(path)))
+		if twoj%2 != 0 {
+			s = append(s, fmt.Sprintf("\\left(%v\\right)_{%v}", halfIntegerLatex(twoj), ma.lookupSubspaceIndex(path)))
+		} else {
+			s = append(s, fmt.Sprintf("%v_{%v}", twoj, ma.lookupSubspaceIndex(path)))
+		}
 	}
 	latexStr += strings.Join(s, "\\oplus ")
 	latexStr += "\\\\\n"
