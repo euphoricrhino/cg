@@ -14,7 +14,7 @@ Then the CG table is rendered to an HTML indicated by the output line. See below
 
 <img width="1534" alt="Screen Shot 2022-06-20 at 21 16 37" src="https://user-images.githubusercontent.com/107862003/174610115-af7bd8dd-5bbd-4e4f-9353-bceb1921de78.png">
 
-* `cmd/multi-angular`: command line tool to expand a tensor product of multiple angular momenta into the total angular momentum basis of the composite system.
+* `./multi-angular`: command line tool to expand a tensor product of multiple angular momenta into the total angular momentum basis of the composite system.
 
 Example
 ```
