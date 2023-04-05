@@ -59,7 +59,7 @@ func (t *Table) cell(dj, dm int) *cell {
 
 func (t *Table) RenderHTML() {
 	data := t.getTableData()
-	filename := filepath.Join(os.TempDir(), "clebsch-gordon.html")
+	filename := filepath.Join(os.TempDir(), "clebsch-gordan.html")
 	f, err := os.Create(filename)
 	if err != nil {
 		panic(err)
